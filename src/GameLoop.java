@@ -1,11 +1,15 @@
-import javax.swing.Renderer;
-
 public class GameLoop implements Runnable {
 
+    private Game game;
+
     private boolean running;
-    private final double updateRate = 1 / 60;
+    private double updateRate = 1.0 / 60.0;
     private long nextStatTime;
     private int fps, ups;
+
+    public GameLoop(Game game) {
+        this.game = game;
+    }
 
     @Override
     public void run() {
@@ -14,23 +18,34 @@ public class GameLoop implements Runnable {
         long currentTime, lastUpdate = System.currentTimeMillis();
         nextStatTime = System.currentTimeMillis() + 1000;
 
-        while (running){
+        /*
+         * The game loop tracks the time that has passed since the last update and
+         * rendering,
+         * and updates the game state and renders the game at a fixed rate based on the
+         * value
+         * of the updateRate
+         */
+
+        while (running) {
             currentTime = System.currentTimeMillis();
-            double lastRenderTimeInSeconds = (currentTime - lastUpdate) / 1000;
+            double lastRenderTimeInSeconds = (currentTime - lastUpdate) / 1000.0;
             accumulator += lastRenderTimeInSeconds;
             lastUpdate = currentTime;
 
-            while (accumulator > updateRate){
-                update();
-                accumulator -= updateRate;
+            if (accumulator >= updateRate) {
+                while (accumulator > updateRate) {
+                    update();
+                    accumulator -= updateRate;
+                }
+                render();
             }
-            render();
-            printStats();
+
+            // printStats();
         }
     }
 
-    private void printStats(){
-        if (System.currentTimeMillis() > nextStatTime){
+    private void printStats() {
+        if (System.currentTimeMillis() > nextStatTime) {
             System.out.println(String.format("FPS: %d, UPS: %d", fps, ups));
             ups = 0;
             fps = 0;
@@ -38,11 +53,13 @@ public class GameLoop implements Runnable {
         }
     }
 
-    private void update(){
+    private void update() {
+        game.update();
         ups++;
     }
 
-    private void render(){
+    private void render() {
+        game.render();
         fps++;
     }
 
