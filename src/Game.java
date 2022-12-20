@@ -1,24 +1,27 @@
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Game {
 
     private Display display;
-    private Rectangle rectangle;
+    private List<GameObject> gameObjects;
 
     public Game(int width, int height) {
         display = new Display(width, height);
-        rectangle = new Rectangle(0, 0, 50, 50);
+        gameObjects = new ArrayList<>();
+        gameObjects.add(new Square());
     }
 
     public void update() {
-        rectangle.setLocation((int) rectangle.getX() + 1, (int) rectangle.getY());
+        gameObjects.forEach(gameObject -> gameObject.update());
     }
 
     public void render() {
         display.render(this);
     }
 
-    public Rectangle getRectangle() {
-        return rectangle;
+    public List<GameObject> getGameObjects() {
+        return gameObjects;
     }
 }

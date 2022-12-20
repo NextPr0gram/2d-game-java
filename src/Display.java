@@ -40,8 +40,7 @@ public class Display extends JFrame {
         graphics.setColor(Color.WHITE);
         graphics.fillRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
-        Rectangle rectangle = game.getRectangle();
-        graphics.setColor(Color.BLUE);
+
 
         /*
          * Casting
@@ -55,15 +54,17 @@ public class Display extends JFrame {
          * double -> float -> long -> int -> char -> short -> byte
          * example: double myDouble = 9.78d; int myInt = (int) myDouble;
          */
-
-        graphics.fillRect(
-                (int) rectangle.getX(),
-                (int) rectangle.getY(),
-                (int) rectangle.getWidth(),
-                (int) rectangle.getHeight());
+        game.getGameObjects().forEach(gameObject -> graphics.drawImage(
+            gameObject.getSprite(),
+            gameObject.getPosition().getX(),
+            gameObject.getPosition().getY(),
+            null
+        ));
 
         graphics.dispose();
         bufferStrategy.show();
+
+
     }
 
 }
