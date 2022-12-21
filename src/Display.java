@@ -7,7 +7,7 @@ public class Display extends JFrame {
 
     private Canvas canvas;
 
-    public Display(int width, int height) {
+    public Display(int width, int height, Input input) {
         setTitle("Anaf's 2d Game");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
@@ -16,6 +16,7 @@ public class Display extends JFrame {
         canvas.setPreferredSize(new Dimension(width, height));
         canvas.setFocusable(false);
         add(canvas);
+        addKeyListener(input);
         pack(); // calculates the size of the jFrame depending on its childrens sizes
 
         /*
