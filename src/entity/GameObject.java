@@ -1,4 +1,8 @@
+package entity;
 import java.awt.*;
+
+import core.Position;
+import core.Size;
 
 public abstract class GameObject {
     protected Position position;

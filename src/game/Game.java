@@ -1,6 +1,13 @@
+package game;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+
+import controller.PlayerController;
+import display.Display;
+import entity.GameObject;
+import entity.Player;
+import input.Input;
 
 public class Game {
 

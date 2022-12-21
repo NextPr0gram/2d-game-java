@@ -1,4 +1,7 @@
+package controller;
 import java.awt.event.KeyEvent;
+
+import input.Input;
 
 public class PlayerController implements Controller {
 

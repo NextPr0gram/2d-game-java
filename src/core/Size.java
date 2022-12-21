@@ -1,3 +1,4 @@
+package core;
 import java.lang.reflect.Constructor;
 
 public class Size {
